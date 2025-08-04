@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use App\Helper\JWTToken;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TokenVerificationApiMiddleware
+class TokenVerificationAPIMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,16 +16,17 @@ class TokenVerificationApiMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $token = $request->header('token');
+
+        $token=$request->header('token');
         $result=JWTToken::VerifyToken($token);
 
         if($result=="unauthorized"){
-            return response()->json(['message' => 'unauthorized'], 401);      
+            return response()->json(['message' => 'unauthorized'], 401);
         }
         else{
-           $request->headers->set('email', $result->userEmail);
-           $request->headers->set('id', $result->userID);
-           return $next($request);
+            $request->headers->set('email',$result->userEmail);
+            $request->headers->set('id',$result->userID);
+            return $next($request);
         }
 
     }
