@@ -2,11 +2,15 @@
 
 namespace App\Helper;
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+use Exception;
+
 class JWTToken {
-    public static function CreateToken(array $payload): string
+    public static function CreateToken(string $userEmail, string $userID): string
     {
         $secretKey = env('JWT_SECRET');
-        $payload=[
+        $payload = [
             'iss' => 'laravel-token',
             'iat' => time(), 
             'exp' => time() + 3600, 
