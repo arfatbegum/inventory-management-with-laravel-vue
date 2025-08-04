@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Helper\JWTToken;
 use Exception;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OTPMail;
 
 class UserController extends Controller
 {
@@ -39,7 +41,7 @@ class UserController extends Controller
         };
     }
 
-   function UserLogin(Request $request)
+    function UserLogin(Request $request)
     {
         $user = User::where('email', $request->input('email'))->first();
 
@@ -63,15 +65,37 @@ class UserController extends Controller
         }
     }
 
-    function UserLogout(Request $request) {
-      return response()->json([
-        'status' => 'success',
-        'message' => 'Logged out successfully'
-    ])->cookie('token', '', -1);
-}
+    function UserLogout(Request $request)
+    {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Logged out successfully'
+        ])->cookie('token', '', -1);
+    }
 
 
-    function SendOTPCode(Request $request) {}
+      function SendOTPCode(Request $request){
+
+        $email=$request->input('email');
+        $otp=rand(1000,9999);
+        $count=User::where('email','=',$email)->count();
+        if($count==1){
+            Mail::to($email)->send(new OTPMail($otp));
+            User::where('email','=',$email)->update(['otp'=>$otp]);
+            return response()->json([
+                'status' => 'success',
+                'message' => "4 Digit {$otp} Code has been send to your email !"
+            ],200);
+        }
+        else{
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'unauthorized'
+            ]);
+        }
+
+    }
+
 
     function VerifyOTP(Request $request) {}
 
