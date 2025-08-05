@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationApiMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,10 @@ Route::post('/create-category', [CategoryController::class, 'createCategory'])->
 Route::delete('/delete-category', [CategoryController::class, 'deleteCategory'])->middleware([TokenVerificationApiMiddleware::class]);
 Route::get('/category-by-id', [CategoryController::class, 'categoryById'])->middleware([TokenVerificationApiMiddleware::class]);
 Route::post('/update-category', [CategoryController::class, 'updateCategory'])->middleware([TokenVerificationApiMiddleware::class]);
+
+//Customer routes
+Route::get('/customer-list', [CustomerController::class, 'customerList'])->middleware([TokenVerificationApiMiddleware::class]);
+Route::post('/create-customer', [CustomerController::class, 'createCustomer'])->middleware([TokenVerificationApiMiddleware::class]);
+Route::delete('/delete-customer', [CustomerController::class, 'deleteCustomer'])->middleware([TokenVerificationApiMiddleware::class]);
+Route::get('/customer-by-id', [CustomerController::class, 'customerById'])->middleware([TokenVerificationApiMiddleware::class]);
+Route::post('/update-customer', [CustomerController::class, 'updateCustomer'])->middleware([TokenVerificationApiMiddleware::class]);
