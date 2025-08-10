@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationApiMiddleware;
@@ -38,3 +39,9 @@ Route::post('/create-product', [ProductController::class, 'createProduct'])->mid
 Route::delete('/delete-product', [ProductController::class, 'deleteProduct'])->middleware([TokenVerificationApiMiddleware::class]);
 Route::get('/product-by-id', [ProductController::class, 'productById'])->middleware([TokenVerificationApiMiddleware::class]);
 Route::post('/update-product', [ProductController::class, 'updateProduct'])->middleware([TokenVerificationApiMiddleware::class]);
+
+//Invoice routes
+Route::post('/create-invoice', [InvoiceController::class, 'invoiceCreate'])->middleware([TokenVerificationApiMiddleware::class]);
+Route::get('/select-invoice', [InvoiceController::class, 'invoiceSelect'])->middleware([TokenVerificationApiMiddleware::class]);
+Route::delete('/delete-invoice', [InvoiceController::class, 'invoiceDelete'])->middleware([TokenVerificationApiMiddleware::class]);
+Route::post('/invoice-details', [InvoiceController::class, 'invoiceDetails'])->middleware([TokenVerificationApiMiddleware::class]);

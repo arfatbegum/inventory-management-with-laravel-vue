@@ -1,4 +1,3 @@
-// database/migrations/2025_07_19_092837_create_products.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;

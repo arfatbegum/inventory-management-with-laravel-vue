@@ -1,4 +1,3 @@
-// database/migrations/2025_07_19_092604_create_customers.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;

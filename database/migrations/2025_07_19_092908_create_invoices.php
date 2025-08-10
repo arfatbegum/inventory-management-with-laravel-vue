@@ -1,4 +1,3 @@
-// database/migrations/2025_07_19_092908_create_invoices.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
