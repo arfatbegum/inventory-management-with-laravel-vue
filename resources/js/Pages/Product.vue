@@ -1,9 +1,12 @@
-<script setup>
-</script>
-
 <template>
-      <h1 class="text-black">Hello Inertia Laravel Vue</h1>
+    <SideNavLayout>
+      <ProductList/>
+    </SideNavLayout>
 </template>
 
-<style scoped>
-</style>
+
+<script setup>
+
+import SideNavLayout from "../Layout/SideNavLayout.vue";
+import ProductList from "../Components/Product/ProductList.vue";
+</script>

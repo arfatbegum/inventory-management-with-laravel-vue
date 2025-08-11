@@ -9,8 +9,45 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+
 class DashboardController extends Controller
 {
+
+    function Dashboard()
+    {
+        return Inertia::render('Dashboard');
+    }
+    function Category()
+    {
+        return Inertia::render('Category');
+    }
+
+    function Customer()
+    {
+        return Inertia::render('Customer');
+    }
+    function Product()
+    {
+        return Inertia::render('Product');
+    }
+
+    function Invoice()
+    {
+        return Inertia::render('Invoice');
+    }
+
+    function Profile()
+    {
+        return Inertia::render('Profile');
+    }
+
+     function Sale()
+    {
+        return Inertia::render('Sale');
+    }
+
+
+
 
     function Summary(Request $request)
     {

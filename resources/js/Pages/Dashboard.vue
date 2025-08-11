@@ -1,9 +1,10 @@
-<script setup>
-</script>
-
 <template>
-      <h1 class="text-black">Hello Inertia Larvel Vue</h1>
+      <SideNavLayout>
+          hello
+      </SideNavLayout>
 </template>
 
-<style scoped>
-</style>
+<script setup>
+import SideNavLayout from '../Layout/SideNavLayout.vue';
+
+</script>

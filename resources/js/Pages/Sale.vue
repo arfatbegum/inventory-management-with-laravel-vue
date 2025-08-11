@@ -1,6 +1,6 @@
 <template>
     <SideNavLayout>
-      <Profile/>
+      <Sale/>
     </SideNavLayout>
 </template>
 
@@ -8,5 +8,5 @@
 <script setup>
 
 import SideNavLayout from "../Layout/SideNavLayout.vue";
-import Profile from "../Components/Dashboard/Profile.vue";
+import Sale from "../Components/Dashboard/Sale.vue";
 </script>

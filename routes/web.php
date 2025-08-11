@@ -13,14 +13,21 @@ use Illuminate\Support\Facades\Route;
 
 
 //Laravel Vue Page Routing
-Route::get('/', [HomeController::class, 'Home']);
-Route::get('/registration', [UserController::class, 'Registration']);
-Route::get('/login', [UserController::class, 'Login']);
-Route::get('/send-otp', [UserController::class, 'SendOTPPage']);
-Route::get('/verify-otp', [UserController::class, 'VerifyOTPPage']);
-Route::get('/reset-password', [UserController::class, 'ResetPasswordPage']);
+Route::get('/', [HomeController::class, 'Home'])->name('Home');
+Route::get('/registration', [UserController::class, 'Registration'])->name('Registration');
+Route::get('/login', [UserController::class, 'Login'])->name('Login');
+Route::get('/send-otp', [UserController::class, 'SendOTPPage'])->name('SendOTPPage');
+Route::get('/verify-otp', [UserController::class, 'VerifyOTPPage'])->name('VerifyOTPPage');
+Route::get('/reset-password', [UserController::class, 'ResetPasswordPage'])->name('ResetPasswordPage');
 
-
+//Laravel Vue Page Routing For Dashboard
+Route::get('/dashboard', [DashboardController::class, 'Dashboard'])->name('Dashboard');
+Route::get('/category', [DashboardController::class, 'Category'])->name('Category');
+Route::get('/customer', [DashboardController::class, 'Customer'])->name('Customer');
+Route::get('/product', [DashboardController::class, 'Product'])->name('Product');
+Route::get('/invoice', [DashboardController::class, 'Invoice'])->name('Invoice');
+Route::get('/sale', [DashboardController::class, 'Sale'])->name('Sale');
+Route::get('/profile', [DashboardController::class, 'Profile'])->name('Profile');
 
 //user routes
 Route::post('/registration', [UserController::class, 'userRegistration'])->name('userRegistration');
