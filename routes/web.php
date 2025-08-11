@@ -3,11 +3,18 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenverificationMiddleware;
 use Illuminate\Support\Facades\Route;
+
+
+
+//Laravel Vue Page Routing
+Route::get('/', [HomeController::class, 'HomePage']);
+
 
 
 //user routes
