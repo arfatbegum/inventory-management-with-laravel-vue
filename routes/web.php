@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //Laravel Vue Page Routing
-Route::get('/', [HomeController::class, 'HomePage']);
+Route::get('/', [HomeController::class, 'Home']);
 
 
 
