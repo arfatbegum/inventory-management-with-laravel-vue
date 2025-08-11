@@ -1,9 +1,10 @@
 <script setup>
+import NavLayout from '../Layout/NavLayout.vue';
+import ResetPasswordForm from '../Components/User/ResetPasswordForm.vue'
 </script>
 
 <template>
-      <h1 class="text-black">Hello Inertia Larvel Vue</h1>
+      <NavLayout>
+            <ResetPasswordForm/>
+      </NavLayout>
 </template>
-
-<style scoped>
-</style>

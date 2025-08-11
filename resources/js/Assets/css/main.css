@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+
+@import "fontawesome.css";
+@import "sidebar.css";
+
+.text-violet{
+    color:#7C3AED !important;
+}
+
+.bg-primary{
+    background-color:#8e4dff !important; ;
+}
+
+.text-secondary{
+    color:#7e7e7e !important;
+}
+
+.card{
+    border: none !important;
+}
+
+.btn-success{
+    background: #21ec6b !important;
+    border-color:  #21ec6b !important;
+}
+.center-screen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+}
+
+.form-control::placeholder {
+  font-size: 13px;
+}
+

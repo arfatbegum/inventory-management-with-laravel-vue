@@ -1,9 +1,10 @@
 <script setup>
+import NavLayout from '../Layout/NavLayout.vue';
+import SendOTPForm from '../Components/User/SendOTPForm.vue'
 </script>
 
 <template>
-      <h1 class="text-black">Hello Inertia Larvel Vue</h1>
+      <NavLayout>
+            <SendOTPForm/>
+      </NavLayout>
 </template>
-
-<style scoped>
-</style>

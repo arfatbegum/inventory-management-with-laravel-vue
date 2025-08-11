@@ -1,9 +1,3 @@
-<script setup>
-</script>
-
 <template>
-      <h1 class="text-black">Hello Inertia Laravel Vue</h1>
+     <slot></slot>
 </template>
-
-<style scoped>
-</style>

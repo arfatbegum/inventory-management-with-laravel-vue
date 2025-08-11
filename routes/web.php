@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 
 //Laravel Vue Page Routing
 Route::get('/', [HomeController::class, 'Home']);
+Route::get('/registration', [UserController::class, 'Registration']);
+Route::get('/login', [UserController::class, 'Login']);
+Route::get('/send-otp', [UserController::class, 'SendOTPPage']);
+Route::get('/verify-otp', [UserController::class, 'VerifyOTPPage']);
+Route::get('/reset-password', [UserController::class, 'ResetPasswordPage']);
 
 
 

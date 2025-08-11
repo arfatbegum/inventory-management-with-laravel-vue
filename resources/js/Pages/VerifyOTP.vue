@@ -1,9 +1,10 @@
 <script setup>
+import VerifyOTPForm from '../Components/User/VerifyOTPForm.vue'
+import NavLayout from '../Layout/NavLayout.vue';
 </script>
 
 <template>
-      <h1 class="text-black">Hello Inertia Larvel Vue</h1>
+      <NavLayout>
+            <VerifyOTPForm/>
+      </NavLayout>
 </template>
-
-<style scoped>
-</style>

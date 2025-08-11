@@ -1,9 +1,10 @@
 <script setup>
+import NavLayout from '../Layout/NavLayout.vue';
+import LoginForm from '../Components/User/LoginForm.vue'
 </script>
 
 <template>
-      <h1 class="text-black">Hello Login Page</h1>
+      <NavLayout>
+            <LoginForm/>
+      </NavLayout>
 </template>
-
-<style scoped>
-</style>
