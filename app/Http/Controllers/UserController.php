@@ -38,59 +38,47 @@ class UserController extends Controller
         return Inertia::render('VerifyOTP');
     }
 
+
     function UserRegistration(Request $request)
     {
-
         try {
             $email = $request->input('email');
             $name = $request->input('name');
             $mobile = $request->input('mobile');
             $password = $request->input('password');
 
-
             User::create([
                 'name' => $name,
                 'email' => $email,
                 'mobile' => $mobile,
-                'password' => $password
+                'password' => bcrypt($password)
             ]);
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User Registration Successfully!'
-            ]);
+            $data = ['message' => 'Registration Successful', 'status' => true, 'error' => ''];
+            return redirect()->route('Login')->with($data);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => 'failed',
-                'message' => $e->getMessage()
-            ], 200);
-        };
-    }
-
-    function UserLogin(Request $request)
-    {
-        $user = User::where('email', $request->input('email'))->first();
-
-        if ($user && Hash::check($request->input('password'), $user->password)) {
-            $tokenPayload = json_encode([
-                'email' => $user->email,
-                'id' => $user->id
-            ]);
-            $token = JWTToken::CreateToken($tokenPayload, $user->id);
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User Login Successfully!',
-                'token' => $token
-            ], 200)->cookie('token', $token, time() + 60 * 24 * 30);
-        } else {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'unauthorized'
-            ], 200);
+            $data = ['message' => 'Registration Failed', 'status' => false, 'error' => $e->getMessage()];
+            return redirect()->back()->with($data);
         }
     }
 
+
+    function UserLogin(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Store session
+            $request->session()->put('email', $user->email);
+            $request->session()->put('user_id', $user->id);
+
+            $data = ['message' => 'Login Successful', 'status' => true];
+            return redirect()->route('Dashboard')->with($data);
+        } else {
+            $data = ['message' => 'Login Failed', 'status' => false];
+            return redirect()->route('Login')->with($data);
+        }
+    }
     function UserLogout(Request $request)
     {
         return response()->json([

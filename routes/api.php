@@ -10,7 +10,7 @@ use App\Http\Middleware\TokenVerificationApiMiddleware;
 use Illuminate\Support\Facades\Route;
 
 //user routes
-Route::post('/registration', [UserController::class, 'userRegistration'])->name('userRegistration');
+Route::post('/user-registration', [UserController::class, 'userRegistration'])->name('userRegistration');
 Route::post('/login', [UserController::class, 'userLogin'])->name('userLogin');
 Route::get('/logout', [UserController::class, 'userLogout'])->name('userLogout');
 Route::post('/send-otp', [UserController::class, 'sendOTPCode'])->name('sendOTPCode');
