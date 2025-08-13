@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Helper\JWTToken;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OTPMail;
@@ -79,78 +78,83 @@ class UserController extends Controller
             return redirect()->route('Login')->with($data);
         }
     }
+
+
     function UserLogout(Request $request)
     {
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Logged out successfully'
-        ])->cookie('token', '', -1);
+        $request->session()->flush();
+        return redirect()->route('LoginPage');
     }
 
 
-    function SendOTPCode(Request $request)
-    {
 
+    function SendOTP(Request $request)
+    {
         $email = $request->input('email');
         $otp = rand(1000, 9999);
         $count = User::where('email', '=', $email)->count();
         if ($count == 1) {
             Mail::to($email)->send(new OTPMail($otp));
             User::where('email', '=', $email)->update(['otp' => $otp]);
-            return response()->json([
-                'status' => 'success',
-                'message' => "4 Digit {$otp} Code has been send to your email !"
-            ], 200);
+            $data = ['message' => 'Request Successful', 'status' => true, 'error' => ''];
+            $request->session()->put('email', $email);
+            return  redirect()->route('VerifyOTPPage')->with($data);
         } else {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'unauthorized'
-            ]);
+            $data = ['message' => 'Request Successful', 'status' => false, 'error' => ''];
+            return  redirect()->route('SendOTPPage')->with($data);
         }
     }
 
 
-    function VerifyOTP(Request $request)
+    function verifyOTP(Request $request)
     {
-        $email = $request->input('email');
+        $email = $request->session()->get('email', 'default');
         $otp = $request->input('otp');
         $count = User::where('email', '=', $email)
             ->where('otp', '=', $otp)->count();
 
         if ($count == 1) {
             User::where('email', '=', $email)->update(['otp' => '0']);
-            $token = JWTToken::CreateTokenForSetPassword($request->input('email'));
-            return response()->json([
-                'status' => 'success',
-                'message' => 'OTP Verification Successful',
-                'token' => $token
-            ], 200)->cookie('token', $token, 60 * 24 * 30);
+            $request->session()->put('otp_verify', 'yes');
+            $data = ['message' => 'OTP Verify Successful', 'status' => true, 'error' => ''];
+            return  redirect()->route('ResetPasswordPage')->with($data);
         } else {
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'unauthorized'
-            ], 200);
+            $data = ['message' => 'OTP Verify Failed', 'status' => false, 'error' => ''];
+            return  redirect()->route('SendOTPPage')->with($data);
         }
     }
+
 
     function ResetPassword(Request $request)
     {
-
         try {
-            $email = $request->header('email');
+            $email = $request->session()->get('email');
+            $otp_verify = $request->session()->get('otp_verify');
             $password = $request->input('password');
-            User::where('email', '=', $email)->update(['password' => $password]);
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Request Successful',
-            ], 200);
-        } catch (Exception $exception) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Something Went Wrong',
-            ], 200);
+
+            if ($otp_verify === "yes" && $email) {
+                User::where('email', $email)->update([
+                    'password' => Hash::make($password)
+                ]);
+
+                // Only clear reset-related session data
+                $request->session()->forget(['email', 'otp_verify']);
+
+                return redirect()
+                    ->route('Login')
+                    ->with(['message' => 'Password reset successful', 'status' => true]);
+            } else {
+                return redirect()
+                    ->route('Login')
+                    ->with(['message' => 'Invalid or expired reset request', 'status' => false]);
+            }
+        } catch (Exception $e) {
+            return redirect()
+                ->route('ResetPasswordPage')
+                ->with(['message' => 'Password reset failed', 'status' => false, 'error' => $e->getMessage()]);
         }
     }
+
 
     function UserProfile(Request $request)
     {

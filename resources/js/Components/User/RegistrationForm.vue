@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-7 col-lg-6 center-screen">
+            <div class="col-md-7 col-lg-5 center-screen">
                 <div class="card animated fadeIn w-100 p-3 shadow-sm">
                     <form @submit.prevent="submit">
                         <div class="card-body">
