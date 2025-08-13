@@ -1,13 +1,13 @@
 <template>
     <div>
-        <nav id="topNav" class="navbar fixed-top bg-white shadow-sm top-navbar">
+        <nav id="topNav" class="navbar fixed-top shadow-sm top-navbar">
             <div class="container-fluid">
                 <a id="MenuBar" @click="NavOpenClose" class="icon-nav mx-0 my-1 h5">
                     <i class="fa text-violet fa-bars"></i>
                 </a>
             </div>
         </nav>
-        <div id="sideNav" class="side-nav-open bg-white text-black">
+        <div id="sideNav" class="side-nav-open bg-white text-black" >
             <div class="side-nav-top text-center mt-3">
                 <h3>Coffee.</h3>
             </div>
@@ -73,23 +73,4 @@ import { Link } from '@inertiajs/vue3'
 </script>
 
 <style scoped>
-.side-nav-open {
-
-  border-right: 1px solid #dcdcdc;
-  scrollbar-width: thin;
-  scrollbar-color: #dcdcdc white; /* thumb color | track color */
-}
-
-.side-bar-item-caption {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #242424;
-}
-
-.side-bar-item:hover {
-    transition: 0.2s;
-    background-color: #dcdcdc;
-    color: black;
-}
 </style>

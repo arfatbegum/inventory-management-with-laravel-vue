@@ -1,23 +1,23 @@
 :root {
     /* Main Color */
-    --themeColor: #7C3AED;
-    --themeColorDark: #39B27B;
-    --themeLightColor: #56d598;
-    --secondaryColor: #B0EACD;
-    --themeDarkColor: #2E374F;
+    --themeColor: #7c3aed;
+    --themeColorDark: #7c3aed;
+    --themeLightColor: #7c3aed;
+    --secondaryColor: #7c3aed;
+    --themeDarkColor: #2e374f;
     --themeWhiteColor: #ffffff;
 
     /* Greyscale Color */
-    --lightColor: #9EA3AE;
-    --lightDeepColor-1: #9EA3AE;
-    --lightDeepColor-2: #FAF8F6;
-    --lightDeepColor-3: #D3D5DA;
-    --lightDeepColor-4: #9EA3AE;
-    --darkColor: #6C727F;
-    --darkDeepColor-1: #4D5461;
+    --lightColor: #9ea3ae;
+    --lightDeepColor-1: #9ea3ae;
+    --lightDeepColor-2: #faf8f6;
+    --lightDeepColor-3: #d3d5da;
+    --lightDeepColor-4: #9ea3ae;
+    --darkColor: #6c727f;
+    --darkDeepColor-1: #4d5461;
     --darkDeepColor-2: #394150;
     --darkDeepColor-3: #212936;
-    --darkDeepColor-4: #0B0A0F;
+    --darkDeepColor-4: #0b0a0f;
 
     /* Typography */
     --headline-1: 52px;
@@ -36,51 +36,50 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--lightDeepColor-2);
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
     font-size: 14px;
 }
-a{
+a {
     cursor: pointer;
     color: inherit;
 }
-a:hover{
+a:hover {
     color: inherit;
 }
 
-
-.icon-nav{
+.icon-nav {
     padding: 6px;
     transition: 0.3s;
     color: #606060;
 }
-.icon-nav:hover{
+.icon-nav:hover {
     transition: 0.3s;
     color: #252526;
 }
-.icon-nav:active{
+.icon-nav:active {
     border-radius: 50%;
     padding: 8px;
     transition: 0.3s;
-    color:#252526;
-    background:  rgba(0, 0, 0, 0.16);
+    color: #252526;
+    background: rgba(0, 0, 0, 0.16);
 }
-.icon-nav-img{
+.icon-nav-img {
     cursor: pointer;
     border-radius: 50%;
-    width: 25px ;
-    height: 25px ;
+    width: 25px;
+    height: 25px;
     object-fit: cover;
 }
-.icon-nav-img-lg{
+.icon-nav-img-lg {
     border-radius: 50%;
-    width: 65px ;
-    height: 65px ;
+    width: 65px;
+    height: 65px;
     object-fit: cover;
 }
 
-.side-nav-logo{
-    margin-top: 30px ;
-    margin-bottom: 20px ;
+.side-nav-logo {
+    margin-top: 30px;
+    margin-bottom: 20px;
     width: 80px;
     align-self: center;
 }
@@ -93,9 +92,10 @@ a:hover{
     left: 0;
     overflow-x: hidden;
     transition: 0.3s;
-    background-color: #252526;
-    scrollbar-color: #252526 #252526;
+    background-color: white;
+    border-right: 1px solid #dcdcdc;
     scrollbar-width: thin;
+    scrollbar-color: #dcdcdc white;
 }
 .side-nav-close {
     padding-top: 70px;
@@ -114,43 +114,39 @@ a:hover{
     width: 10px;
     height: 10px;
 }
-.side-nav-open::-webkit-scrollbar-track-piece  {
-    background-color: #F5F5F5;
+.side-nav-open::-webkit-scrollbar-track-piece {
+    background-color: #f5f5f5;
 }
 .side-nav-open::-webkit-scrollbar-thumb:vertical {
     height: 30px;
     border-radius: 4px;
-    background: #CCCCCC;
+    background: #cccccc;
 }
 .side-nav-close::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
-.side-nav-close::-webkit-scrollbar-track-piece  {
-    background-color: #F5F5F5;
+.side-nav-close::-webkit-scrollbar-track-piece {
+    background-color: #f5f5f5;
 }
 .side-nav-close::-webkit-scrollbar-thumb:vertical {
     height: 30px;
     border-radius: 4px;
-    background: #CCCCCC;
+    background: #cccccc;
 }
 
-
-
-.top-navbar{
+.top-navbar {
     background: #ffffff;
     transition: 0.3s;
     margin-left: 240px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
 }
-.top-navbar-expand{
+.top-navbar-expand {
     background: #ffffff;
     transition: 0.3s;
     margin-left: 0;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
 }
-
-
 
 .content {
     margin-top: 70px;
@@ -169,37 +165,41 @@ a:hover{
     height: 30px;
 }
 
-.side-bar-item{
+.side-bar-item {
     text-decoration: none;
     display: inline-block;
     padding: 12px 5px 12px 12px;
     width: 100% !important;
 }
-.side-bar-item:hover{
+.side-bar-item:hover {
     transition: 0.2s;
-    background-color: #535353;
+    background-color: #dcdcdc;
 }
 .side-bar-item:hover .side-bar-item-icon {
     color: #fcfcff;
 }
 .side-bar-item:hover .side-bar-item-caption {
-    color: #ffffff;
+    color: #212936;
 }
-.side-bar-item-active{
+.side-bar-item-active {
     background-color: #535353;
 }
-.side-bar-item-icon{
+.side-bar-item-icon {
     font-size: 18px;
     margin-left: 10px;
     margin-right: 10px;
     font-weight: 500;
     color: #ffffff;
 }
-.side-bar-item-caption{
-    font-family: 'Poppins', sans-serif ;
+.side-bar-item-caption {
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: 500;
-    color: #ffffff;
+    color: #292929;
+}
+
+.buttons-pagination .item.button.active[data-v-4c681fa2] {
+    background-color: #7c3aed !important;
 }
 
 /* Responsive */
@@ -229,7 +229,7 @@ a:hover{
     }
 }
 
-@media (min-width:340px) and (max-width: 360.98px) {
+@media (min-width: 340px) and (max-width: 360.98px) {
     .side-nav-open {
         width: 0;
         position: fixed;
@@ -330,9 +330,7 @@ a:hover{
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
-
 }
 
 @media (min-width: 1200px) {
-
 }
