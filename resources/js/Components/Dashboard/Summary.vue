@@ -1,16 +1,15 @@
-
 <template>
     <div class="container-fluid">
+        <h5>Overview</h5>
         <div class="row">
-
-            <div class="col-lg-3 col-md-3 col-10 animated fadeIn p-2">
-                <div class="card card-plain h-100 bg-white">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
+                <div class="h-100 bg-white custom-style">
                     <div class="p-3">
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="product">100</span>
+                                        <span id="product">{{page.props.list['product']}}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Product</p>
                                 </div>
@@ -25,14 +24,14 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-10 animated fadeIn p-2">
-                <div class="card card-plain h-100 bg-white">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
+                <div class="custom-style h-100 bg-white">
                     <div class="p-3">
                         <div class="row">
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="category">100</span>
+                                        <span id="product">{{page.props.list['category']}}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Category</p>
                                 </div>
@@ -47,14 +46,14 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-3 col-10 animated fadeIn p-2">
-                <div class="card card-plain h-100 bg-white">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
+                <div class="custom-style h-100 bg-white">
                     <div class="p-3">
                         <div class="row">
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="customer">100</span>
+                                        <span id="product">{{page.props.list['customer']}}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Customer</p>
                                 </div>
@@ -70,13 +69,13 @@
             </div>
 
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
-                <div class="card card-plain h-100  bg-white">
+                <div class="custom-style h-100  bg-white">
                     <div class="p-3">
                         <div class="row">
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        <span id="invoice">100</span>
+                                        <span id="product">{{page.props.list['invoice']}}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Invoice</p>
                                 </div>
@@ -93,13 +92,13 @@
 
 
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
-                <div class="card card-plain h-100 bg-white">
+                <div class="custom-style h-100 bg-white">
                     <div class="p-3">
                         <div class="row">
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        $ <span id="total">1000</span>
+                                        $ <span id="product">{{page.props.list['total']}}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Total Sale</p>
                                 </div>
@@ -116,13 +115,13 @@
 
 
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
-                <div class="card card-plain h-100  bg-white">
+                <div class="custom-style h-100  bg-white">
                     <div class="p-3">
                         <div class="row">
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        $ <span id="vat">1000</span>
+                                        $ <span id="product">{{page.props.list['vat']}}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Vat Collection</p>
                                 </div>
@@ -139,13 +138,13 @@
 
 
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 animated fadeIn p-2">
-                <div class="card card-plain h-100  bg-white">
+                <div class="custom-style h-100  bg-white">
                     <div class="p-3">
                         <div class="row">
                             <div class="col-9 col-lg-8 col-md-8 col-sm-9">
                                 <div>
                                     <h5 class="mb-0 text-capitalize font-weight-bold">
-                                        $ <span id="payable">1000</span>
+                                        $ <span>{{page.props.list['payable']}}</span>
                                     </h5>
                                     <p class="mb-0 text-sm">Total Collection</p>
                                 </div>
@@ -164,8 +163,16 @@
     </div>
 </template>
 
-
 <script setup>
-
+import { usePage } from '@inertiajs/vue3';
+const page = usePage()
 </script>
+
+<style>
+.custom-style{
+    border: 1px solid #dddddd91;
+    border-radius: 5px;
+}
+</style>
+
 

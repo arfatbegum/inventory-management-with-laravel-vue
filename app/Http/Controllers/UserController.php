@@ -176,11 +176,11 @@ class UserController extends Controller
 
             User::where('email', '=', $email)->update($updateData);
 
-            $data = ['message' => 'Request Success', 'status' => true];
-            return redirect()->route('ProfilePage')->with($data);
+            $data = ['message' => 'Profile Updated Successfully', 'status' => true];
+            return redirect()->route('Profile')->with($data);
         } catch (Exception $e) {
             $data = ['message' => 'Request Fail', 'status' => false, 'error' => $e->getMessage()];
-            return redirect()->route('ProfilePage')->with($data);
+            return redirect()->route('Profile')->with($data);
         }
     }
 }

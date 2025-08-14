@@ -49,4 +49,4 @@ Route::post('/invoice-details', [InvoiceController::class, 'invoiceDetails'])->m
 
 
 //Dashboard
-Route::get('/summary', [DashboardController::class, 'summary'])->middleware([TokenVerificationApiMiddleware::class]);
+//Route::get('/summary', [DashboardController::class, 'summary'])->middleware([TokenVerificationApiMiddleware::class]);
