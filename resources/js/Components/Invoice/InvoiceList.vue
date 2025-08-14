@@ -1,7 +1,6 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-10 col-md-8 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div>
@@ -14,6 +13,7 @@
                             <EasyDataTable
                                 buttons-pagination
                                 alternating
+                                 border-cell
                                 :headers="Header"
                                 :items="Item"
                                 :rows-per-page="10"
@@ -38,14 +38,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-
+const searchField = ["name", "no"];
+const searchValue = ref(0);
 const Header = [
     { text: "No", value: "no" },
     { text: "Name", value: "name" },
@@ -80,6 +80,3 @@ const itemClick = (number, player) => {
 };
 </script>
 
-<style>
-
-</style>

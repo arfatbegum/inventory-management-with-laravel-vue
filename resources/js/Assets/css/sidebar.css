@@ -202,6 +202,14 @@ a:hover {
     background-color: #7c3aed !important;
 }
 
+.top-navbar-closed {
+    margin-left: 0;
+}
+
+.content-closed {
+    margin-left: 0;
+}
+
 /* Responsive */
 
 @media (max-width: 339.98px) {

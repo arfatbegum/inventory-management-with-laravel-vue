@@ -1,6 +1,6 @@
 <template>
     <SideNavLayout>
-      <Profile/>
+            <Profile/>
     </SideNavLayout>
 </template>
 

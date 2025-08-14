@@ -155,53 +155,32 @@ class UserController extends Controller
         }
     }
 
-
-    function UserProfile(Request $request)
-    {
-        $email = $request->header('email');
-        $user = User::where('email', '=', $email)->first();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Request Successful',
-            'data' => $user
-        ], 200);
-    }
-
-
-    public function UpdateProfile(Request $request)
+    function UpdateProfile(Request $request)
     {
         try {
-            $email = $request->header('email');
-            if (!$email) {
-                return response()->json([
-                    'status' => 'fail',
-                    'message' => 'Email header missing',
-                ], 400);
+            $email = $request->input('email');
+            $name = $request->input('name');
+            $mobile = $request->input('mobile');
+            $password = $request->input('password');
+
+            $updateData = [
+                'name' => $name,
+                'email' => $email,
+                'mobile' => $mobile
+            ];
+
+            // Only update password if provided
+            if (!empty($password)) {
+                $updateData['password'] = Hash::make($password);
             }
 
-            $user = User::where('email', $email)->first();
-            if (!$user) {
-                return response()->json([
-                    'status' => 'fail',
-                    'message' => 'User not found',
-                ], 404);
-            }
+            User::where('email', '=', $email)->update($updateData);
 
-            $user->update([
-                'name' => $request->input('name'),
-                'mobile' => $request->input('mobile'),
-                'password' => bcrypt($request->input('password'))
-            ]);
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Profile updated successfully',
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Something went wrong',
-            ], 500);
+            $data = ['message' => 'Request Success', 'status' => true];
+            return redirect()->route('ProfilePage')->with($data);
+        } catch (Exception $e) {
+            $data = ['message' => 'Request Fail', 'status' => false, 'error' => $e->getMessage()];
+            return redirect()->route('ProfilePage')->with($data);
         }
     }
 }
