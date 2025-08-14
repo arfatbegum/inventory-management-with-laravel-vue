@@ -24,7 +24,8 @@ Route::get('/reset-password', [UserController::class, 'ResetPasswordPage'])->nam
 Route::get('/dashboard', [DashboardController::class, 'Dashboard'])->name('Dashboard')->middleware([SessionAuthenticate::class]);
 Route::get('/category', [CategoryController::class, 'Category'])->name('Category')->middleware([SessionAuthenticate::class]);
 Route::get('/create-and-update-category', [CategoryController::class, 'CreateAndUpdateCategoryPage'])->name('CreateAndUpdateCategoryPage')->middleware([SessionAuthenticate::class]);
-Route::get('/customer', [DashboardController::class, 'Customer'])->name('Customer')->middleware([SessionAuthenticate::class]);
+Route::get('/customer', [CustomerController::class, 'Customer'])->name('Customer')->middleware([SessionAuthenticate::class]);
+Route::get('/create-and-update-customer', [CustomerController::class, 'CreateAndUpdateCustomerPage'])->name('CreateAndUpdateCustomerPage')->middleware([SessionAuthenticate::class]);
 Route::get('/product', [DashboardController::class, 'Product'])->name('Product')->middleware([SessionAuthenticate::class]);
 Route::get('/invoice', [DashboardController::class, 'Invoice'])->name('Invoice')->middleware([SessionAuthenticate::class]);
 Route::get('/sale', [DashboardController::class, 'Sale'])->name('Sale')->middleware([SessionAuthenticate::class]);
@@ -51,7 +52,7 @@ Route::post('/update-category', [CategoryController::class, 'updateCategory'])->
 //Customer routes
 Route::get('/customer-list', [CustomerController::class, 'customerList'])->middleware([SessionAuthenticate::class]);
 Route::post('/create-customer', [CustomerController::class, 'createCustomer'])->middleware([SessionAuthenticate::class]);
-Route::delete('/delete-customer', [CustomerController::class, 'deleteCustomer'])->middleware([SessionAuthenticate::class]);
+Route::delete('/delete-customer/{id}', [CustomerController::class, 'deleteCustomer'])->middleware([SessionAuthenticate::class]);
 Route::get('/customer-by-id', [CustomerController::class, 'customerById'])->middleware([SessionAuthenticate::class]);
 Route::post('/update-customer', [CustomerController::class, 'updateCustomer'])->middleware([SessionAuthenticate::class]);
 
