@@ -22,7 +22,8 @@ Route::get('/reset-password', [UserController::class, 'ResetPasswordPage'])->nam
 
 //Laravel Vue Page Routing For Dashboard
 Route::get('/dashboard', [DashboardController::class, 'Dashboard'])->name('Dashboard')->middleware([SessionAuthenticate::class]);
-Route::get('/category', [DashboardController::class, 'Category'])->name('Category')->middleware([SessionAuthenticate::class]);
+Route::get('/category', [CategoryController::class, 'Category'])->name('Category')->middleware([SessionAuthenticate::class]);
+Route::get('/create-and-update-category', [CategoryController::class, 'CreateAndUpdateCategoryPage'])->name('CreateAndUpdateCategoryPage')->middleware([SessionAuthenticate::class]);
 Route::get('/customer', [DashboardController::class, 'Customer'])->name('Customer')->middleware([SessionAuthenticate::class]);
 Route::get('/product', [DashboardController::class, 'Product'])->name('Product')->middleware([SessionAuthenticate::class]);
 Route::get('/invoice', [DashboardController::class, 'Invoice'])->name('Invoice')->middleware([SessionAuthenticate::class]);
@@ -42,7 +43,7 @@ Route::post('/update-profile', [UserController::class, 'updateProfile'])->middle
 //Category routes
 Route::get('/category-list', [CategoryController::class, 'categoryList'])->middleware([SessionAuthenticate::class]);
 Route::post('/create-category', [CategoryController::class, 'createCategory'])->middleware([SessionAuthenticate::class]);
-Route::delete('/delete-category', [CategoryController::class, 'deleteCategory'])->middleware([SessionAuthenticate::class]);
+Route::delete('/delete-category/{id}', [CategoryController::class, 'deleteCategory'])->middleware([SessionAuthenticate::class]);
 Route::get('/category-by-id', [CategoryController::class, 'categoryById'])->middleware([SessionAuthenticate::class]);
 Route::post('/update-category', [CategoryController::class, 'updateCategory'])->middleware([SessionAuthenticate::class]);
 

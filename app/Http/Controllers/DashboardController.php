@@ -13,10 +13,10 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    function Category()
-    {
-        return Inertia::render('Category');
-    }
+    // function Category()
+    // {
+    //     return Inertia::render('Category');
+    // }
 
     function Customer()
     {
