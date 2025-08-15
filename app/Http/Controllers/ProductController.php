@@ -2,112 +2,150 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+
+    function Product(Request $request)
+    {
+        $user_id = $request->header('id');
+
+        $list = Product::with('category:id,name')
+            ->where('user_id', $user_id)
+            ->get();
+
+        return Inertia::render('Product', ['list' => $list]);
+    }
+
+
+    function CreateAndUpdateProductPage(Request $request)
+    {
+        try {
+            $product_id = $request->query('id');
+            $user_id = $request->header('id');
+
+            $product = null;
+            if ($product_id && $product_id != 0) {
+                $product = Product::where('id', $product_id)
+                    ->where('user_id', $user_id)
+                    ->first();
+            }
+
+            $categories = Category::where('user_id', $user_id)->get(['id', 'name']);
+
+            return Inertia::render('CreateAndUpdateProduct', [
+                'product' => $product,
+                'categories' => $categories
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with([
+                'message' => 'Failed to load product page',
+                'status' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
     function CreateProduct(Request $request)
     {
-        $userId = $request->header('id');
-
-        $product = Product::create([
-            'name'        => $request->input('name'),
-            'price'       => $request->input('price'),
-            'unit'        => $request->input('unit'),
-            'img_url'     => $request->input('img_url'),
-            'category_id' => $request->input('category_id'),
-            'user_id'     => $userId
-        ]);
-
-        return response()->json([
-            'status'  => 'success',
-            'message' => 'Product created successfully',
-            'data'    => $product
-        ], 201);
+        try {
+            $user_id = $request->header('id');
+            Product::create([
+                'name' => $request->input('name'),
+                'price' => $request->input('price'),
+                'unit' => $request->input('unit'),
+                'img_url'     => $request->input('img_url'),
+                'category_id' => $request->input('category_id'),
+                'user_id' => $user_id
+            ]);
+            $data = ['message' => 'Product Created Successfully', 'status' => true, 'error' => ''];
+        } catch (Exception $e) {
+            $data = ['message' => 'Product Creation Failed', 'status' => false, 'error' => $e->getMessage()];
+        }
+        return redirect()->route('Product')->with($data);
     }
 
-    function ProductList(Request $request)
+
+    public function ProductList(Request $request)
     {
-        $userId = $request->header('id');
-        $products = Product::where('user_id', $userId)->get();
+        try {
+            $user_id = $request->header('id');
 
-        return response()->json([
-            'status' => 'success',
-            'data'   => $products
-        ]);
+            $products = Product::with('category:id,name')
+                ->where('user_id', $user_id)
+                ->get();
+
+            return Inertia::render('ProductList', [
+                'list' => $products
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to fetch Product list',
+                'details' => $e->getMessage()
+            ], 500);
+        }
     }
+
+
 
     function ProductById(Request $request)
     {
-        $userId = $request->header('id');
-        $product_id = $request->input('product_id');
-
-        $product = Product::where('id', $product_id)
-            ->where('user_id', $userId)
-            ->first();
-
-        if (!$product) {
-            return response()->json([
-                'status'  => 'fail',
-                'message' => 'Product not found or unauthorized'
-            ], 404);
+        try {
+            $user_id = $request->header('id');
+            $product_id = $request->input('id');
+            return Product::where('id', $product_id)->where('user_id', $user_id)->first();
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Failed to fetch Product', 'details' => $e->getMessage()], 500);
         }
-
-        return response()->json([
-            'status' => 'success',
-            'data'   => $product
-        ]);
     }
 
     function UpdateProduct(Request $request)
     {
-        $user_id = $request->header('id');
-        $product_id = $request->input('product_id');
+        try {
+            $user_id = $request->header('id');
+            $product_id = $request->input('id');
 
-        $product = Product::where('id', $product_id)->where('user_id', $user_id)->first();
-
-        if (!$product) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Product not found or unauthorized'
-            ], 404);
+            Product::where('id', $product_id)->where('user_id', $user_id)->update([
+                'name' => $request->input('name'),
+                'price' => $request->input('price'),
+                'unit' => $request->input('unit'),
+                'img_url' => $request->input('img_url'),
+                'category_id' => $request->input('category_id')
+            ]);
+            $data = ['message' => 'Product Updated Successfully', 'status' => true, 'error' => ''];
+        } catch (Exception $e) {
+            $data = ['message' => 'Product Update Failed', 'status' => false, 'error' => $e->getMessage()];
         }
-
-        $product->update([
-            'name' => $request->input('name'),
-            'price' => $request->input('price'),
-            'unit' => $request->input('unit'),
-            'img_url' => $request->input('img_url'),
-            'category_id' => $request->input('category_id'),
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product updated successfully'
-        ], 200);
+        return redirect()->route('Product')->with($data);
     }
 
-
-    function DeleteProduct(Request $request)
+    function DeleteProduct($id, Request $request)
     {
-        $user_id = $request->header('id');
-        $product_id = $request->input('product_id');
+        try {
+            $user_id = $request->header('id');
 
-        $product = Product::where('id', $product_id)->where('user_id', $user_id)->first();
+            Product::where('id', $id)
+                ->where('user_id', $user_id)
+                ->delete();
 
-        if (!$product) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Product not found or unauthorized'
-            ], 404);
+            $data = [
+                'message' => 'Product Deleted Successfully',
+                'status'  => true,
+                'error'   => ''
+            ];
+        } catch (Exception $e) {
+            $data = [
+                'message' => 'Product Delete Failed',
+                'status'  => false,
+                'error'   => $e->getMessage()
+            ];
         }
 
-        $product->delete();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product deleted successfully'
-        ], 200);
+        return redirect()->route('Product')->with($data);
     }
 }

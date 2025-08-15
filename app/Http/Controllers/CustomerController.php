@@ -96,28 +96,27 @@ class CustomerController extends Controller
     }
 
     function DeleteCustomer($id, Request $request)
-{
-    try {
-        $user_id = $request->header('id');
+    {
+        try {
+            $user_id = $request->header('id');
 
-        Customer::where('id', $id)
-            ->where('user_id', $user_id)
-            ->delete();
+            Customer::where('id', $id)
+                ->where('user_id', $user_id)
+                ->delete();
 
-        $data = [
-            'message' => 'Customer Deleted Successfully',
-            'status'  => true,
-            'error'   => ''
-        ];
-    } catch (Exception $e) {
-        $data = [
-            'message' => 'Customer Delete Failed',
-            'status'  => false,
-            'error'   => $e->getMessage()
-        ];
+            $data = [
+                'message' => 'Customer Deleted Successfully',
+                'status'  => true,
+                'error'   => ''
+            ];
+        } catch (Exception $e) {
+            $data = [
+                'message' => 'Customer Delete Failed',
+                'status'  => false,
+                'error'   => $e->getMessage()
+            ];
+        }
+
+        return redirect()->route('Customer')->with($data);
     }
-
-    return redirect()->route('Customer')->with($data);
-}
-
 }
