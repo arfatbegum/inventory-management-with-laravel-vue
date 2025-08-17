@@ -150,23 +150,39 @@ class InvoiceController extends Controller
             ]
         ]);
     }
+function invoiceDelete(Request $request)
+{
+    DB::beginTransaction();
+    try {
+        $user_id = $request->header('id');
+        $inv_id = $request->input('inv_id');
 
-    function invoiceDelete(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            $user_id = $request->header('id');
-            InvoiceProduct::where('invoice_id', $request->input('inv_id'))
-                ->where('user_id', $user_id)
-                ->delete();
+        // Delete invoice products
+        InvoiceProduct::where('invoice_id', $inv_id)
+            ->where('user_id', $user_id)
+            ->delete();
 
-            Invoice::where('id', $request->input('inv_id'))->delete();
+        // Delete invoice
+        Invoice::where('id', $inv_id)
+            ->where('user_id', $user_id)
+            ->delete();
 
-            DB::commit();
-            return 1;
-        } catch (Exception $e) {
-            DB::rollBack();
-            return 0;
-        }
+        DB::commit();
+
+        // After successful deletion, redirect to the Invoice list page.
+        // Inertia will handle this as a full page reload, fetching the updated list.
+        return redirect()->route('Invoice')->with([
+            'message' => 'Invoice Deleted Successfully',
+            'status' => true
+        ]);
+    } catch (Exception $e) {
+        DB::rollBack();
+
+        return redirect()->route('Invoice')->with([
+            'message' => 'Invoice Delete Failed',
+            'status' => false,
+            'error' => $e->getMessage(),
+        ]);
     }
+}
 }
