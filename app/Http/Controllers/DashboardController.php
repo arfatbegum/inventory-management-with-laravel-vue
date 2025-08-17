@@ -13,11 +13,6 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    function Product()
-    {
-        return Inertia::render('Product');
-    }
-
     function Invoice()
     {
         return Inertia::render('Invoice');
@@ -30,13 +25,16 @@ class DashboardController extends Controller
         return Inertia::render('Profile',['list'=>$user]);
     }
 
-     function Sale()
+    function Sale(Request $request)
     {
-        return Inertia::render('Sale');
+         $user_id = $request->header('id');
+            $customerList = Customer::where('user_id', $user_id)->get();
+            $productlist = Product::where('user_id', $user_id)->get();
+            return Inertia::render('Sale', [
+        'customers' => $customerList,
+        'products' => $productlist,
+    ]);
     }
-
-
-
 
     function Dashboard(Request $request)
       {

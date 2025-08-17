@@ -7,6 +7,6 @@
 
 <script setup>
 
+import Sale from "../Components/Sales/Sale.vue";
 import SideNavLayout from "../Layout/SideNavLayout.vue";
-import Sale from "../Components/Dashboard/Sale.vue";
 </script>

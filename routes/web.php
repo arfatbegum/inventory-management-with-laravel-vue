@@ -32,7 +32,9 @@ Route::get('/create-and-update-customer', [CustomerController::class, 'CreateAnd
 Route::get('/product', [ProductController::class, 'Product'])->name('Product')->middleware([SessionAuthenticate::class]);
 Route::get('/create-and-update-product', [ProductController::class, 'CreateAndUpdateProductPage'])->name('CreateAndUpdateProductPage')->middleware([SessionAuthenticate::class]);
 
-Route::get('/invoice', [DashboardController::class, 'Invoice'])->name('Invoice')->middleware([SessionAuthenticate::class]);
+Route::get('/invoice', [InvoiceController::class, 'Invoice'])->name('Invoice')->middleware([SessionAuthenticate::class]);
+Route::get('/create-invoice', [InvoiceController::class, 'CreateInvoicePage'])->name('CreateInvoicePage')->middleware([SessionAuthenticate::class]);
+
 Route::get('/sale', [DashboardController::class, 'Sale'])->name('Sale')->middleware([SessionAuthenticate::class]);
 Route::get('/profile', [DashboardController::class, 'Profile'])->name('Profile')->middleware([SessionAuthenticate::class]);
 

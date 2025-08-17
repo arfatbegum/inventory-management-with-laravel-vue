@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InvoiceProduct extends Model
 {
@@ -13,7 +14,9 @@ class InvoiceProduct extends Model
         'qty',
         'sale_price',
     ];
-      function product():BelongsTo{
-        return $this->belongsTo(Customer::class);
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }

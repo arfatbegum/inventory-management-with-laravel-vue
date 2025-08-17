@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div>
@@ -10,27 +11,30 @@
                                 type="text"
                                 v-model="searchValue"
                             />
+                            <Link
+                                class="btn bg-primary text-white"
+                                href="/create-invoice"
+                            >
+                                Create New
+                            </Link>
                             <EasyDataTable
                                 buttons-pagination
                                 alternating
-                                 border-cell
                                 :headers="Header"
                                 :items="Item"
                                 :rows-per-page="10"
                                 :search-field="searchField"
                                 :search-value="searchValue"
+                                border-cell
                             >
-                                <template #item-number="{ number, player }">
-                                    <button
-                                        class="btn btn-sm"
-                                        @click="itemClick(number, player)"
-                                    >
-                                        <i class="fa fa-edit text-violet"></i>
+                                <template #item-number="{ id, total }">
+                                    <button class="border-0 bg-transparent">
+                                        <i class="fa fa-eye text-violet"></i>
                                     </button>
-                                    <button
-                                        class="btn btn-sm"
-                                        @click="itemClick(number, player)"
-                                    >
+                                    <button class="border-0 bg-transparent">
+                                        <i class="fa fa-print text-violet"></i>
+                                    </button>
+                                    <button class="border-0 bg-transparent">
                                         <i class="fa fa-trash text-danger"></i>
                                     </button>
                                 </template>
@@ -38,45 +42,30 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-const searchField = ["name", "no"];
-const searchValue = ref(0);
+import { Link, usePage } from "@inertiajs/vue3";
+let page = usePage();
+
 const Header = [
-    { text: "No", value: "no" },
-    { text: "Name", value: "name" },
+    { text: "No", value: "id" },
+    { text: "Customer", value: "customer.name" },
+    { text: "Phone", value: "customer.mobile" },
+    { text: "Total", value: "total" },
+    { text: "Discount", value: "discount" },
+    { text: "Vat", value: "vat" },
+    { text: "Payable", value: "payable" },
     { text: "Action", value: "number" },
 ];
 
-const Item = ref([
-    { no: "1", name: "Fruits" },
-    { no: "2", name: "Vegetables" },
-    { no: "3", name: "Dairy Products" },
-    { no: "4", name: "Meat and Poultry" },
-    { no: "5", name: "Seafood" },
-    { no: "6", name: "Grains and Cereals" },
-    { no: "7", name: "Bakery and Pastry" },
-    { no: "8", name: "Beverages" },
-    { no: "9", name: "Snacks and Appetizers" },
-    { no: "10", name: "Spices and Herbs" },
-    { no: "11", name: "Sauces and Condiments" },
-    { no: "12", name: "Frozen Foods" },
-    { no: "13", name: "Canned and Preserved Foods" },
-    { no: "14", name: "Organic Foods" },
-    { no: "15", name: "Gluten-Free Products" },
-    { no: "16", name: "Vegan and Plant-Based Foods" },
-    { no: "17", name: "Sweets and Desserts" },
-    { no: "18", name: "Nuts and Seeds" },
-    { no: "19", name: "Oils and Fats" },
-    { no: "20", name: "Ready-to-Eat Meals" },
-]);
+const Item = ref(page.props.list);
 
-const itemClick = (number, player) => {
-    alert(`Number is=${number} & Player Name is=${player}`);
+const itemClick = (id, total) => {
+    alert(`ID is=${id} &  total is=${total}`);
 };
 </script>
-

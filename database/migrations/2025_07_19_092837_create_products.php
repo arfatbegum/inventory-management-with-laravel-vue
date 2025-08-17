@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('price', length: 50);
             $table->string('unit', length: 50);
             $table->string('img_url')->nullable();
+            $table->decimal('sale_price', 10, 2)->nullable();
             $table->timestamps();
         });
     }
