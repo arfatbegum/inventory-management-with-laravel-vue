@@ -34,6 +34,7 @@ Route::get('/create-and-update-product', [ProductController::class, 'CreateAndUp
 
 Route::get('/invoice', [InvoiceController::class, 'Invoice'])->name('Invoice')->middleware([SessionAuthenticate::class]);
 Route::get('/create-invoice', [InvoiceController::class, 'CreateInvoicePage'])->name('CreateInvoicePage')->middleware([SessionAuthenticate::class]);
+Route::get('/invoice-details', [InvoiceController::class, 'InvoiceDetailsPage'])->name('InvoiceDetailsPage')->middleware([SessionAuthenticate::class]);
 
 Route::get('/sale', [DashboardController::class, 'Sale'])->name('Sale')->middleware([SessionAuthenticate::class]);
 Route::get('/profile', [DashboardController::class, 'Profile'])->name('Profile')->middleware([SessionAuthenticate::class]);

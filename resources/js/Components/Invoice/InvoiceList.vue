@@ -4,19 +4,24 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                         <h5 class="fw-semibold mb-3">Invoice List</h5>
                         <div>
-                            <input
-                                placeholder="Search..."
-                                class="form-control mb-2 w-auto form-control-sm"
-                                type="text"
-                                v-model="searchValue"
-                            />
-                            <Link
-                                class="btn bg-primary text-white"
-                                href="/create-invoice"
+                            <div
+                                class="d-flex justify-content-between align-items-center mb-2"
                             >
-                                Create New
-                            </Link>
+                                <input
+                                    placeholder="Search..."
+                                    class="form-control mb-2 w-auto form-control-sm"
+                                    type="text"
+                                    v-model="searchValue"
+                                />
+                                <Link
+                                    class="btn btn-sm bg-primary text-white"
+                                    href="/sale"
+                                >
+                                    Create New
+                                </Link>
+                            </div>
                             <EasyDataTable
                                 buttons-pagination
                                 alternating
@@ -27,10 +32,13 @@
                                 :search-value="searchValue"
                                 border-cell
                             >
-                                <template #item-number="{ id, total }">
-                                    <button class="border-0 bg-transparent">
-                                        <i class="fa fa-eye text-violet"></i>
-                                    </button>
+                                <template #item-number="{ id }">
+                                   <Link
+    :href="`/invoice-details?inv_id=${id}`"
+    class="border-0 bg-transparent"
+  >
+    <i class="fa fa-eye text-violet"></i>
+  </Link>
                                     <button class="border-0 bg-transparent">
                                         <i class="fa fa-print text-violet"></i>
                                     </button>
@@ -65,7 +73,4 @@ const Header = [
 
 const Item = ref(page.props.list);
 
-const itemClick = (id, total) => {
-    alert(`ID is=${id} &  total is=${total}`);
-};
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-lg-4 col-md-4 col-12">
                 <form @submit.prevent="submit">
                     <div class="card">
                         <div class="card-body">
@@ -56,12 +56,12 @@
                                 </EasyDataTable>
                             </div>
                             <div class="mt-4">
-                                <h3>TOTAL: {{ total.toFixed(2) }}</h3>
-                                <h3>VAT (5%): {{ vat.toFixed(2) }}</h3>
+                                <h3>TOTAL: $ {{ total.toFixed(2) }}</h3>
+                                <h3>VAT (5%): $ {{ vat.toFixed(2) }}</h3>
                                 <h3>
-                                    Discount: {{ discountAmount.toFixed(2) }}
+                                    Discount: $ {{ discountAmount.toFixed(2) }}
                                 </h3>
-                                <h3>PAYABLE: {{ payable.toFixed(2) }}</h3>
+                                <h3>PAYABLE: $ {{ payable.toFixed(2) }}</h3>
 
                                 <div>
                                     <label class="mb-1 mt-2"
@@ -74,14 +74,14 @@
                                     />
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn bg-primary text-white">
+                             <button type="submit" class="btn btn-sm bg-primary text-white mt-4" >
                         Create Invoice
                     </button>
+                        </div>
+                    </div>
                 </form>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4 col-md-4 col-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="fw-semibold mb-3">Customer List</h5>
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4 col-md-4 col-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="fw-semibold mb-3">Product List</h5>

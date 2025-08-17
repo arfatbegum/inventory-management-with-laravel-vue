@@ -9,7 +9,13 @@ class Invoice extends Model
 {
     protected $fillable = ['total', 'discount', 'vat', 'payable', 'user_id', 'customer_id'];
 
-    function customer():BelongsTo{
-        return $this->belongsTo(Customer::class);
-    }
+    // Invoice.php
+public function customer() {
+    return $this->belongsTo(Customer::class, 'customer_id');
+}
+
+public function invoiceProducts() {
+    return $this->hasMany(InvoiceProduct::class, 'invoice_id');
+}
+
 }

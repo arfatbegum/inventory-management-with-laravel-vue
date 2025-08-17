@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\InvoiceProduct;
-use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +18,44 @@ class InvoiceController extends Controller
         $user_id = $request->header('id');
         $list = Invoice::where('user_id', $user_id)->with('customer')->get();
         return Inertia::render('Invoice', ['list' => $list]);
+    }
+
+    function InvoiceDetailsPage(Request $request)
+    {
+        $user_id = $request->header('id');
+        $invoice_id = $request->input('inv_id');
+
+        // Fetch invoice
+        $invoiceData = Invoice::where('user_id', $user_id)
+            ->where('id', $invoice_id)
+            ->first();
+
+        if (!$invoiceData) {
+            return redirect()->back()->with([
+                'status' => false,
+                'message' => 'Invoice not found.'
+            ]);
+        }
+
+        // Fetch customer using customer_id from invoice
+        $customer = Customer::where('user_id', $user_id)
+            ->where('id', $invoiceData->customer_id)
+            ->first();
+
+        // Fetch products
+        $products = InvoiceProduct::where('invoice_id', $invoice_id)
+            ->where('user_id', $user_id)
+            ->with('product')
+            ->get();
+
+        return Inertia::render('InvoiceDetailsPage', [
+            'invoice' => [
+                'customer' => $customer,
+                'invoice' => $invoiceData,
+                'product' => $products,
+            ],
+            'flash' => session('flash')
+        ]);
     }
 
     function invoiceCreate(Request $request)
@@ -75,18 +112,44 @@ class InvoiceController extends Controller
     function InvoiceDetails(Request $request)
     {
         $user_id = $request->header('id');
-        $customerDetails = Customer::where('user_id', $user_id)->where('id', $request->input('cus_id'))->first();
-        $invoiceTotal = Invoice::where('user_id', '=', $user_id)->where('id', $request->input('inv_id'))->first();
-        $invoiceProduct = InvoiceProduct::where('invoice_id', $request->input('inv_id'))
-            ->where('user_id', $user_id)->with('product')
-            ->get();
-        return array(
-            'customer' => $customerDetails,
-            'invoice' => $invoiceTotal,
-            'product' => $invoiceProduct,
-        );
-    }
+        $inv_id = $request->input('inv_id');
+        $cus_id = $request->input('cus_id');
 
+        $customer = Customer::where('user_id', $user_id)
+            ->where('id', $cus_id)
+            ->first();
+
+        $invoice = Invoice::where('user_id', $user_id)
+            ->where('id', $inv_id)
+            ->first();
+
+        $products = InvoiceProduct::where('invoice_id', $inv_id)
+            ->where('user_id', $user_id)
+            ->with('product')
+            ->get();
+
+        if (!$customer || !$invoice) {
+            return Inertia::render('InvoiceDetailsPage', [
+                'invoice' => null,
+                'flash' => [
+                    'status' => false,
+                    'message' => 'Invoice or customer not found.'
+                ]
+            ]);
+        }
+
+        return Inertia::render('InvoiceDetailsPage', [
+            'invoice' => [
+                'customer' => $customer,
+                'invoice' => $invoice,
+                'product' => $products,
+            ],
+            'flash' => [
+                'status' => true,
+                'message' => 'Invoice details loaded successfully.'
+            ]
+        ]);
+    }
 
     function invoiceDelete(Request $request)
     {

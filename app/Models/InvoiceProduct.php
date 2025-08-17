@@ -15,8 +15,8 @@ class InvoiceProduct extends Model
         'sale_price',
     ];
 
-    public function product(): BelongsTo
-    {
-        return $this->belongsTo(Product::class);
-    }
+    public function product() {
+    return $this->belongsTo(Product::class, 'product_id');
+}
+
 }
