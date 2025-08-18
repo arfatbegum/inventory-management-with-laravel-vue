@@ -169,8 +169,6 @@ function invoiceDelete(Request $request)
 
         DB::commit();
 
-        // After successful deletion, redirect to the Invoice list page.
-        // Inertia will handle this as a full page reload, fetching the updated list.
         return redirect()->route('Invoice')->with([
             'message' => 'Invoice Deleted Successfully',
             'status' => true

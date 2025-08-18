@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SalesReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\SessionAuthenticate;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +78,6 @@ Route::get('/select-invoice', [InvoiceController::class, 'invoiceSelect'])->midd
 Route::delete('/delete-invoice', [InvoiceController::class, 'invoiceDelete'])->middleware([SessionAuthenticate::class]);
 Route::post('/invoice-details', [InvoiceController::class, 'invoiceDetails'])->middleware([SessionAuthenticate::class]);
 
-
-//Dasboard
-//Route::get('/summary', [DashboardController::class, 'summary'])->middleware([SessionAuthenticate::class]);
+// Route to generate and display the sales report 
+Route::get('/sales-report', [SalesReportController::class, 'showReportPage'])->middleware([SessionAuthenticate::class]);
+Route::get('/sales-report/download-pdf', [SalesReportController::class, 'downloadPdf'])->middleware([SessionAuthenticate::class]);
