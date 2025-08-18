@@ -83,7 +83,7 @@ class UserController extends Controller
     function UserLogout(Request $request)
     {
         $request->session()->flush();
-        return redirect()->route('LoginPage');
+        return redirect()->route('Login');
     }
 
 

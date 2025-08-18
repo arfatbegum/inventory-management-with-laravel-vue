@@ -13,6 +13,7 @@
         h2,
         h3 {
             color: #4a4a4a;
+            font-size: 16px;
         }
 
         /* Summary section */
@@ -74,6 +75,7 @@
 </head>
 
 <body>
+    <h1>Point Of Sale.</h1>
     <h2>Sales Report ({{ $dateFrom }} to {{ $dateTo }})</h2>
 
     <div class="summary">

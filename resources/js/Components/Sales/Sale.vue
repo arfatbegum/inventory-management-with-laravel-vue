@@ -22,7 +22,7 @@
                                     </p>
                                 </div>
                                 <div>
-                                    <h5 class="fw-semibold mb-3">COFFEE.</h5>
+                                    <h5 class="fw-semibold mb-3">Point Of Sale.</h5>
                                     <h6 class="fw-semibold mb-3">Invoice</h6>
                                     <p>
                                         Date:

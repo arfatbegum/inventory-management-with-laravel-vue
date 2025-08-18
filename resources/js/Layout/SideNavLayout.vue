@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand fw-bold ps-3" href="#">COFFEE.</a>
+                <a class="navbar-brand fw-bold ps-3 text-uppercase" href="/">Point Of Sale.</a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -16,14 +16,20 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <Link class="nav-link" href="#">
+                            <a
+                                class="nav-link"
+                                @click.prevent="logout"
+                                style="cursor: pointer"
+                            >
                                 <span class="side-bar-item-caption"
                                     >Logout</span
                                 >
-                                <span class="side-bar-item-icon"
-                                    ><i class="fa fa-sign-out-alt text-violet"
-                                /></span>
-                            </Link>
+                                <span class="side-bar-item-icon">
+                                    <i
+                                        class="fa fa-sign-out-alt text-violet"
+                                    ></i>
+                                </span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -325,7 +331,12 @@
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
+
+// Logout function
+const logout = () => {
+    router.get("/logout");
+};
 </script>
 
 <style scoped>
